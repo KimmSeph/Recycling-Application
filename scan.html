@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DecodeWaste | Welcome</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .scanner-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+    }
+
+    .scanner-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .scan-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      border: 2px solid white;
+      border-radius: 12px;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <section class="screen index-screen">
+    <div class="intro-box">
+      <h1>Welcome to DecodeWaste</h1>
+      <p>
+        DecodeWaste is a smart, eco-friendly tool designed to help users make better waste disposal choices. By simply scanning a product's barcode or QR code, DecodeWaste instantly identifies whether the item is plastic, non-biodegradable, or recyclable.
+      </p>
+      <p>
+        This application empowers individuals and communities to reduce pollution, sort waste responsibly, and take a step toward a cleaner, more sustainable environment.
+      </p>
+    </div>
+  </section>
+
+  <div class="scanner-wrapper" style="display:none;">
+    <video autoplay playsinline></video>
+    <div class="scan-frame"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="home.html" class="nav-item">Home</a>
+    <a href="search.html" class="nav-item">Search</a>
+    <a href="#" class="nav-item scan-icon" id="scanBtn">📷</a>
+    <a href="residuos.html" class="nav-item">Waste</a>
+  </nav>
+
+  <script>
+    const scanBtn = document.getElementById('scanBtn');
+    const scannerWrapper = document.querySelector('.scanner-wrapper');
+    const videoElement = scannerWrapper.querySelector('video');
+
+    scanBtn.addEventListener('click', () => {
+      scannerWrapper.style.display = 'flex';
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then((stream) => {
+          videoElement.srcObject = stream;
+          videoElement.play();
+        })
+        .catch((err) => {
+          alert('Camera access is required to scan. Please enable camera permissions.');
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>

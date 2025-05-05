@@ -1,0 +1,63 @@
+<!-- Updated Search Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .category-buttons button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 6px;
+      border: none;
+      background-color: #2e7d32;
+      color: white;
+      font-weight: bold;
+    }
+    .materials-list img {
+      max-width: 100px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <section class="screen">
+    <div class="map-box">
+      <div class="category-buttons">
+        <button onclick="showMaterials('recyclable')">Recyclable</button>
+        <button onclick="showMaterials('nonRecyclable')">Non-Recyclable</button>
+        <button onclick="showMaterials('hazardous')">Hazardous Waste</button>
+      </div>
+      <div class="materials-list" id="materialsList"></div>
+    </div>
+  </section>
+  <nav class="navbar">
+    <a href="home.html" class="nav-item">Home</a>
+    <a href="search.html" class="nav-item active">Search</a>
+    <a href="scan.html" class="nav-item scan-icon">📷</a>
+    <a href="residuos.html" class="nav-item">Waste</a>
+  </nav>
+  <script>
+    const materials = {
+      recyclable: [
+        'Plastic Bottles', 'Glass Bottles', 'Cardboard Boxes', 'Aluminum Cans', 'Newspapers', 'Paper Bags', 'Steel Cans', 'Magazines', 'Plastic Containers', 'Jars'
+      ],
+      nonRecyclable: [
+        'Styrofoam', 'Soiled Pizza Boxes', 'Used Tissues', 'Plastic Utensils', 'Diapers', 'Ceramics', 'Greasy Paper', 'Candy Wrappers', 'Rubber Bands', 'Food Wrappers'
+      ],
+      hazardous: [
+        'Batteries', 'Fluorescent Bulbs', 'Paint Cans', 'Motor Oil', 'Pesticides', 'Acids', 'Medical Waste', 'Aerosol Cans', 'E-waste', 'Solvents'
+      ]
+    };
+
+    function showMaterials(category) {
+      const listEl = document.getElementById('materialsList');
+      listEl.innerHTML = `<h3>${category.replace(/([A-Z])/g, ' $1')}</h3><ul>` +
+        materials[category].map(item => `<li>${item}</li>`).join('') + '</ul>' +
+        `<img src="img/${category}.jpg" alt="${category} image">`;
+    }
+  </script>
+</body>
+</html>
